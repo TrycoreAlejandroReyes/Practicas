@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de actividades</title>
+</head>
+
+<body>
+    <h1>Lista de actividades</h1>
+
+    <form method="get" action="{{ url_for('actividades.index') }}">
+        <label for="fechaFiltro">Filtrar por fecha:</label>
+        <input type="date" id="fechaFiltro" name="fechaFiltro" value="{{ request.args.get('fechaFiltro', '') }}">
+        <button type="submit">Filtrar</button>
+        {% if request.args.get('fechaFiltro') %}
+            <a href="{{ url_for('actividades.index') }}">Quitar filtro</a>
+        {% endif %}
+    </form>
+
+    <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Fecha</th>
+            <th>Funciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for actividad in actividades %}
+            <tr>
+                <td>{{ actividad.nombreActividad }}</td>
+                <td>{{ actividad.descripcionActividad }}</td>
+                <td>{{ actividad.fechaActividad.strftime('%Y-%m-%d') if actividad.fechaActividad else '' }}</td>
+                <td>
+                    <form action="{{ url_for('actividades.delete', id=actividad.idActividad) }}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('¿Seguro que desea eliminar la Actividad?');">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('actividades.add') }}">Agregar nueva actividad</a>
+</body>
+</html>

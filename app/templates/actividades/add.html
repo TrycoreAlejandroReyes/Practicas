@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades</title>
+</head>
+<body>
+    <h1>Agregar Actividades</h1>
+    <form action="{{ url_for('actividades.add') }}" method="post">
+        <label for="nombreActividad">Nombre de la Actividad:</label>
+        <input type="text" id="nombreActividad" name="nombreActividad" required>
+
+        <label for="descripcionActividad">Descripcion de la Actividad:</label>
+        <input type="text" id="descripcionActividad" name="descripcionActividad" required>
+
+        <label for="fechaActividad">Fecha de la Actividad:</label>
+        <input type="date" id="fechaActividad" name="fechaActividad" required>
+
+        <button type="submit">Agregar Actividad</button>
+        <a href="{{ url_for('actividades.index') }}">Regresar a la lista de actividades</a>
+    </form>
+</body>
+</html>
+
